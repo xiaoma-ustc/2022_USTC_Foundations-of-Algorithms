@@ -1,0 +1,30 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, graphicx}
+\title{assignment2}
+\author{Xiaoma}
+\date{2022.09.16}
+\begin{document}
+\maketitle
+\subsection*{1.对于一个按升序排列的包含n个元素的有序数组A来说，HEAPSORT的时间复杂度
+是多少？如果A是降序呢，请简要分析并给出结果。}
+    降序排列：建堆时调用n次MAX-HEAPIFY(A,i)，初始序列为降序，故
+    每次时间复杂度为O(1)，故建堆时间复杂度为O(n)，排序时，调用(n-1)次MAX-HEAPIFY(A, i)，
+    若发生交换，MAX-HEAPIFY(A, i)还要进行logn次，故排序的时间复杂度为O(logn)，整体时间
+    复杂度为O(logn)。\\
+    \par
+    升序排列：建堆时调用n次MAX-HEAPIFY(A,i)，每次都发生交换，时间复杂度为O(logn)，排序时，调用
+    (n-1)次MAX-HEAPIFY(A, i)，若发生交换，MAX-HEAPIFY(A, i)还要进行logn次，
+    故排序的时间复杂度为O(logn)，整体时间复杂度为O(logn)。
+
+\subsection*{2.快速排序:
+    (a)假设快速排序每一层所做的划分比例都是$1-\alpha:\alpha$，其中$0<\alpha \leqslant 1/2$且是一个常数。试证明：在相应的递归树中，叶节点的最小深度大约是$-\lg n/ \lg \alpha$，最大深度约是 $-\lg n / (1-\alpha)$（无序考虑舍入问题）。
+    (b)试证明：在一个随机输入数组上，对于任何常数$0<\alpha \leqslant 1/2$，PARTITION产生比$1-\alpha:\alpha$更平衡的划分的概率约为$1-2\alpha$。}
+    \begin{itemize}
+        \item [(a)] 若要求最小深度则选择划分比例小的一侧，不断迭代k次直至剩余
+        一个元素，即$n\alpha ^{k}=1$，则$k=\frac{-\lg n}{\lg \alpha} $\\
+        若要求最大深度则选择换分比例大的一侧，不断迭代k次直至剩余一个元素
+        即$n(1-\alpha)^{k}=1$，则$k=\frac{-\lg n}{\lg(1-\alpha)}$\\
+        \item [(b)] 若要产生比$1-\alpha:\alpha$更平衡的划分，那么划分点应该在$n\alpha$与$n(1-\alpha)$之间，又因为
+        划分点的选取服从均匀分布，则$$\mathbf{P} =\frac{(1-\alpha)n-\alpha n}{n}=1-2\alpha $$
+    \end{itemize}
+\end{document}

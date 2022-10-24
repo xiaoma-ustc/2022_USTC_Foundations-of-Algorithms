@@ -1,0 +1,77 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, color, framed, graphicx, hyperref, mathrsfs}
+\usepackage{enumerate}
+\title{\textbf{assignment3}}
+\author{Xiaoma}
+\date{\today}
+\linespread{1.5}
+\definecolor{shadecolor}{RGB}{230, 245, 255}
+\newcounter{problemname}
+\newenvironment{problem}{\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目\arabic{problemname}. }}{\end{shaded}\par}
+\newenvironment{solution}{\par\noindent\textbf{解答. }}{\par}
+\newenvironment{note}{\par\noindent\textbf{题目\arabic{problemname}的注记. }}{\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+下面的排序算法中哪些是稳定的：插入排序、归并排序、堆排序、快速排序和计数排序？给
+出一个能使任何排序算法都稳定的方法。你所给出的方法带来的额外时间和空间开销是多少？
+\end{problem}
+\begin{solution}
+    稳定排序：插入排序，归并排序，计数排序\\
+    排序前为长度为n的序列设置长度为n的标签，若在排序时遇到值相同的数，则比较其标签，
+    小标签在前。额外的时间复杂度为$O(n)$，空间复杂度为$O(n)$
+\end{solution}
+
+\begin{problem}
+给定一个整数数组，其中不同的整数所包含的数字的位数可能不同。但该数组中，所有整数
+中包含的总数字位数为 n。设计算法使其可以在 O(n) 时间内对该数组进行排序。
+\end{problem}
+\begin{solution}
+    采用基数排序的方法，按位从低到高排序，RADIX-SORT使用计数排序，每位取值共有10
+    种可能，设数组中数的位数为$d_{i}$，数组中共有x个数，则$\sum_{i = 1}^{x}d_{i}=n$，则数组每一位排序的时间复杂度为
+    $O(x+10)$，则总时间复杂度为$O(d_{imax}(x+10))=O(n)$
+\end{solution}
+
+\begin{problem}
+SELECT 算法 (找第 i 小的元素) 最坏情况下的比较次数 T(n) = Θ(n)，但是其中的常数项
+使非常大的。请对其进行优化，使其满足：\\
+• 在最坏情况下的比较次数为 Θ(n)。\\
+• 当 i 是小于 n/2 的常数时，最坏情况下只需要进行 n + O(log n) 次比较。
+
+\end{problem}
+\begin{solution}
+    当$i\geq n/2$时，仍使用原算法。\\
+    当$i\leq n/2$时，使用算法：
+    \begin{enumerate}
+        \item 设输入数组为$A[0 ,\dots ,n - 1]$，$m=\frac{n}{2}$，将数组分为两份，若$n$为奇数，则将第$n$个
+              数暂时分出，此时得到两个等长数组$B_{l}[0 ,\dotsb ,m - 1], B_{r}[m ,\dotsb ,2m-1]$，对左右两侧的数组建立一一
+              对应的映射$B_{l}[x]\leftrightarrow B_{r}[x+m] \quad x=0,\dotsb,m-1$，
+              依次对每对映射对应的数字进行比较，若$B_{l}[x]>B_{r}[x+m]$，则交换两数。最终映射左侧的数小于映射
+              右侧的数，保持该映射关系不变。
+        \item 递归进行操作1直至$i>m/2$，注意在递归过程中，若映射对出现交换，上层分组仍应保持左侧小于
+              右侧的规则，故可能进行多次交换。
+        \item 对最终的$B_{r}$进行SELECT算法，得到$B_{r}$中最小的i个数，则$B_{l},B_{r}$中最小的i个数
+              在两数组前i个数共2i个数中产生，对此2i个数进行SELECT算法，若n为奇数则将剩余的一个数放入，得到最小的i
+              个数，返回上一层。
+        \item 在上一层同理，对左右两数组前i个数进行SELECT得到该层最小的i个数，直至返回结束，得到A中最小的i
+              个数，即得到目标值。
+    \end{enumerate}
+    时间复杂度分析：\\当$i<  n/2$时
+    \begin{align*}
+         & \quad COMPETITION(n)               \\
+         & =n/2+COMPETITION(n/2)+T(2i)        \\
+         & =n/2+n/2+f(T(2i)\log (n/2i))+T(2i) \\
+         & =n + O(T(2i)\log(n/i))             \\
+         & =n + O(\log n)
+    \end{align*}
+    当$i \geq n/2$时，
+    \begin{align*}
+         & \quad COMPETITION \\
+         & = T(n)            \\
+         & = \Theta (n)
+    \end{align*}
+\end{solution}
+\end{document}

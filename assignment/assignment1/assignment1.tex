@@ -1,0 +1,43 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, graphicx}
+\title{assignment1}
+\author{xiaoma}
+\date{2022.09.10}
+\begin{document}
+\maketitle
+\subsection*{4.5-1}
+\begin{itemize}
+    \item [a.] $\mathbf{T} (n)=2\mathbf{T} (n / 4)+1$\\
+    递归式满足形如$\mathbf{T} (n)=a\mathbf{T} (n/b)+f(n)$的情况，
+    已知$a=2\geqslant 1,f(n)=\sqrt{n} $，则
+    $$n^{\log _{4}2}=\sqrt{n}$$
+    当$\varepsilon = \frac{1}{2} $时，有
+    $$f(n)=O (n^{\log _{4}2-\varepsilon })$$
+    所以$\mathbf{T} (n)=\Theta (\sqrt{n})$
+    \item [b.] $\mathbf{T} (n)=2\mathbf{T} (n/4)+\sqrt{n}$\\
+    参数同上，
+    $$n^{\log _{4}2}=\sqrt{n}$$
+    当$k = 0$时，有
+    $$f(n)=O (n^{\log _{4}2}\lg^{k}n)$$
+    所以$\mathbf{T} (n)=\Theta (\sqrt{n}\lg n)$
+    \item [c.] $\mathbf{T} (n)=2\mathbf{T} (n/4)+n$\\
+    参数同上，
+    $$n^{\log _{4}2}=\sqrt{n}$$
+    当$\varepsilon = \frac{1}{2} $时，有
+    $$f(n)=O (n^{\log _{4}2+\varepsilon })$$
+    所以$\mathbf{T} (n)=\Theta (n)$
+    \item [d.] $\mathbf{T} (n)=2\mathbf{T} (n/4)+n^{2}$\\
+    参数同上，
+    $$n^{\log _{4}2}=\sqrt{n}$$
+    当$\varepsilon = \frac{3}{2} $时，有
+    $$f(n)=O (n^{\log _{4}2+\varepsilon })$$
+    所以$\mathbf{T} (n)=\Theta (n^{2})$\\
+\subsection*{4.5-4}
+    可以\\
+    由$$\mathbf{T} (n)=4\mathbf{T} (n / 2)+n^{2}\lg n$$
+    知$$n^{\log _{2}4}=n^{2}$$
+    当$k=1$时，有
+    $$f(n)=O (n^{\log _{2}4}\lg^{k}n)$$
+    所以$\mathbf{T} (n)=\Theta (n^{2}lg^{2}n)$
+\end{itemize}
+\end{document}
