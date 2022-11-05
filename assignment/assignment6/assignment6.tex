@@ -1,0 +1,97 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, color, framed, graphicx, hyperref, mathrsfs}
+\usepackage{enumerate}
+\usepackage{epstopdf}
+\usepackage{float}
+\title{\textbf{assignment3}}
+\author{Xiaoma}
+\date{\today}
+\linespread{1.5}
+\definecolor{shadecolor}{RGB}{230, 245, 255}
+\newcounter{problemname}
+\newenvironment{problem}{\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目\arabic{problemname}. }}{\end{shaded}\par}
+\newenvironment{solution}{\par\noindent\textbf{解答. }}{\par}
+\newenvironment{note}{\par\noindent\textbf{题目\arabic{problemname}的注记. }}{\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+\end{problem}
+\begin{solution}
+    在没有切割成本时，钢条切割问题的状态转移方程为
+    $$r_{n}=
+    \begin{cases}
+        p_{1} \quad n=1\\
+        \max_{1\leq i \leq n}(p_{i} + r_{n-i}) \quad n > 1
+    \end{cases}$$
+    加入切割成本以后，状态转移方程变为
+    $$r_{n}=
+    \begin{cases}
+        p_{1} \quad n=1\\
+        \max(p_{n} + \max_{1 \leq i \leq n - 1}(p_{i} + r_{n - i} - c)) \quad n >1
+    \end{cases}$$
+    使用数组将不同长度的最大利润存储下来，自底向上计算钢条切割问题。
+\end{solution}
+
+\begin{problem}
+    
+\end{problem}
+\begin{solution}
+    
+\end{solution}
+
+\begin{problem}
+    
+\end{problem}
+\begin{solution}
+    \begin{enumerate}
+        \item 对点集进行排序
+        \item 从头开始遍历点集，设区间的左边界为$x_{i}$，
+        然后去掉点集中满足$x_{i} \leq x_{j} \leq x_{i} + $
+        的点$x_{j}$，直至遍历结束。
+    \end{enumerate}
+    \begin{itemize}
+        \item 排序的时间复杂度为$O(n\log n)$
+        \item 遍历点集的时间复杂度为$O(n)$
+        \item 算法的总时间复杂度为$O(n\log n)$
+    \end{itemize}
+    证明:\\
+    已知需要建立的区间为单位区间，设每个区间的左边界为$x_{1},x_{2},...,x_{m}$，
+    则它们所在区间必然不相交，如果要包含点集中的所有点，则单位区间的数量至少要$m$个，
+    所以该算法找到的是满足条件的最小区间。
+\end{solution}
+
+\begin{problem}
+    
+\end{problem}
+\begin{solution}
+    
+\end{solution}
+
+\begin{problem}
+    
+\end{problem}
+\begin{solution}
+    \begin{itemize}
+        \item 每次尽可能拿最大面额的硬币，直到零钱总额为$n$。
+    \end{itemize}
+    证明：\\
+    贪心算法求解问题的条件：
+    \begin{enumerate}
+        \item 贪心选择性质
+        \item 最优子结构
+    \end{enumerate}
+    \begin{enumerate}
+        \item 贪心选择性质：\\
+        该问题可以通过局部最优解构造全局最优解，如果1美分的硬币达到5个，则可以换成1个5美分的硬币，其他情况同理，
+        所以每次选择的零钱面额都会保证硬币数量最小，尽可能选择最大面额的硬币的局部最优解在
+        全局最优解序列中。
+        \item 最优子结构：\\
+        每个问题的最优解都包含组成该问题的子问题的最优解，即大面额零钱兑换问题的最优解一定
+        包含着子面额的零钱兑换问题的最优解。
+    \end{enumerate}
+    
+\end{solution}
+\end{document}
