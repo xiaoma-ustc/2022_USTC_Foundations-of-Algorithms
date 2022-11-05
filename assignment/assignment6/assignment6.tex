@@ -108,7 +108,38 @@
     
 \end{problem}
 \begin{solution}
-    
+    贪心算法求解问题的条件：
+    \begin{enumerate}
+        \item 贪心选择性质
+        \item 最优子结构
+    \end{enumerate}
+    \begin{enumerate}
+        \item 贪心选择性质：\\
+        该问题可以通过局部最优解构造全局最优解，每次为进程安排机器时都会选择最空闲的机器，所以每次选择都会保证任务完成
+        的总时间尽可能的短，尽可能选择空闲的机器的局部最优解在全局最优解序列中。
+        \item 最优子结构：\\
+        每个问题的最优解都包含组成该问题的子问题的最优解，即n个进程的多机调度最优解一定包含着x(m<x<n)个进程的多机调度的最优解。
+    \end{enumerate}
+    \begin{algorithm*}
+        \caption{Multi-machine  Scheduling}
+        \label{alg:algorithm}
+        \KwIn{The number of processes : $n$; \\The time required for the process : $t[n]$;\\
+        The number of machines : $m$;}
+        \KwOut{The shortest time required : $shortest\_time$}
+        \BlankLine
+        Initialize $dp$;\\
+        sort(t);\\
+        \For(){int i = 0; i < m; ++i}{
+            dp[i] = t[i];
+        }
+        \For(){int i = m; i < n; ++i}{
+            min\_time = findmin(dp);\\
+            dp[min] += t[i];
+        }
+        max\_time = findmax(dp);
+        \BlankLine
+        \Return{$dp[max\_time]$}
+    \end{algorithm*}
 \end{solution}
 
 \begin{problem}
