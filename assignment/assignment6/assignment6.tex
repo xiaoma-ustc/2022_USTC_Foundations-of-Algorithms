@@ -3,6 +3,8 @@
 \usepackage{enumerate}
 \usepackage{epstopdf}
 \usepackage{float}
+\usepackage{framed}
+\usepackage[ruled,vlined]{algorithm2e}
 \title{\textbf{assignment3}}
 \author{Xiaoma}
 \date{\today}
@@ -39,7 +41,45 @@
     
 \end{problem}
 \begin{solution}
+    通过动态规划问题求解该问题，我们需要考虑苹果与盘子数量之间的关系对存放方法的影响，设苹果的数量为$i$，盘子的数量为$j$
+    \begin{itemize}
+        \item 当苹果的数量小于等于盘子数量时，无论如何放置，相较于苹果的数量和盘子相等时，最终都会多出$j - i$个空盘子，故该种情况下
+        放苹果的方法数等于此时苹果数量与盘子数量相等时的放苹果方法数。
+        \item 当苹果的数量大于盘子数量时，则放苹果的方法数可以分解为两种情况：1.将新增的盘子作为空盘，则此时放苹果的数量与未新增盘子前相同。
+        2.将新增的盘子放入苹果，先将每个盘子放入一个苹果，然后剩余的苹果放入所有盘子的方法种类就是该种情况放苹果的种类数。
+    \end{itemize}
+    状态转移方程变为
     
+    $$dp[i][j]=\begin{cases}
+        dp[i][i] \quad j >= i\\
+        dp[i][j - 1] + dp[i - j][j] \quad j < i
+    \end{cases}$$
+    \begin{algorithm*}
+        \caption{Put-Apples}
+        \label{alg:algorithm}
+        \KwIn{The number of apple : $m$; The number of plates : $n$;}
+        \KwOut{The number of methods : $methods$;}
+        \BlankLine
+        Initialize $dp$;\\
+        \For(){int i = 0; i < m; ++i}{
+            dp[i][0] = 0;
+        }
+        \For(){int i = 0; i < n; ++i}{
+            dp[0][i] = 0;
+        }
+        \For(){int i = 0; i < m; ++i}{
+            \For(){int j = 0; j < n; ++j}{
+                \If(){j >= i}{
+                    dp[i][j] = dp[i][i];
+                }
+                \Else(){
+                    dp[i][j] = dp[i][j - 1] + dp[i - j][j];
+                }
+            }
+        }
+        \BlankLine
+        \Return{$dp[m - 1][n - 1]$}
+    \end{algorithm*}
 \end{solution}
 
 \begin{problem}
@@ -52,6 +92,7 @@
         然后去掉点集中满足$x_{i} \leq x_{j} \leq x_{i} + $
         的点$x_{j}$，直至遍历结束。
     \end{enumerate}
+    时间复杂度分析：
     \begin{itemize}
         \item 排序的时间复杂度为$O(n\log n)$
         \item 遍历点集的时间复杂度为$O(n)$
@@ -93,5 +134,46 @@
         包含着子面额的零钱兑换问题的最优解。
     \end{enumerate}
     
+    \begin{problem}
+        
+    \end{problem}
+    \begin{solution}
+        \begin{algorithm*}
+            \caption{0-1 Knapsack}
+            \label{alg:algorithm}
+            \KwIn{The number of items : $n$; The value of items : $v[n]$; \\
+            The weight of items : $w[n]$; The capacity of the backpack : $weight$  }
+            \KwOut{Maximum value : $max\_val$}
+            \BlankLine
+            Initialize $dp$;\\
+            \For(){int i = 0; i < weight; ++i}{
+                dp[0][j] = 0;
+            }
+            \For(){int i = 0; i < n; ++i}{
+                dp[i][0] = 0;
+            }
+            \For(){int i = 0; i < n; ++i}{
+                \For(){int j = 0; j < weight; ++j}{
+                    \If(){w[i] < j}{
+                        dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - w[i]] + v[i]);
+                    }
+                    \Else(){
+                        dp[i][j] = dp[i - 1][j];
+                    }
+                }
+            }
+            \BlankLine
+            \Return{$dp[n - 1][weight - 1]$};
+        \end{algorithm*}
+        \begin{itemize}
+            \item 最优性原理：\\
+            假设$X_{1},X_{2},...,X_{n}$是0-1背包问题的最优解，则$X_{1},X_{2},...,X_{n - 1}$
+            是该问题的子问题，假设$Y_{1},Y_{2},...,Y_{n}$是该问题的最优解，则
+            $$(v_{1}Y_{1}+v_{2}Y_{2}+...+v_{n-1}Y_{n-1} )+v_{n}X_{n} > (v_{1}X_{1}+v_{2}X_{2}+...+v_{n-1}X_{n-1} )+v_{n}X_{n}$$
+            则$Y_{1},Y_{2},...,Y_{n-1}, X_{n}$才是问题的最优解，与原假设矛盾。则0-1背包问题满足最优性原理。
+            \item 无后小性：\\
+            在任意阶段，只要背包剩余容量和可选物品相同，最优选择相同，不受之前所选择的物品影响。则0-1背包问题满足无后效性。
+        \end{itemize}
+    \end{solution}
 \end{solution}
 \end{document}
