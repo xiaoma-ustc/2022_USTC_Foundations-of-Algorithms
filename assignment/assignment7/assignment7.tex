@@ -1,0 +1,31 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, color, framed, graphicx, hyperref, mathrsfs}
+\usepackage{enumerate}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{framed}
+\usepackage[ruled,vlined]{algorithm2e}
+\title{\textbf{assignment3}}
+\author{Xiaoma}
+\date{\today}
+\linespread{1.5}
+\definecolor{shadecolor}{RGB}{230, 245, 255}
+\newcounter{problemname}
+\newenvironment{problem}{\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目\arabic{problemname}. }}{\end{shaded}\par}
+\newenvironment{solution}{\par\noindent\textbf{解答. }}{\par}
+\newenvironment{note}{\par\noindent\textbf{题目\arabic{problemname}的注记. }}{\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+\end{problem}
+\begin{solution}
+第i个操作的代价为
+$$d_{i}\begin{cases}
+    i \quad if i = 2^{k},k\in \mathbb{N} \\
+    1 \quad else
+\end{cases}$$
+\end{solution}
+\end{document}
