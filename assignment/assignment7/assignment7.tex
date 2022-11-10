@@ -22,10 +22,83 @@
 \begin{problem}
 \end{problem}
 \begin{solution}
+使用桶排序，基于元素的位数对元素进行分组，每个分组的排序方法为基数排序。\\
+\pagebreak
+\begin{algorithm*}
+    \caption{SORT}
+    \label{alg:algorithm}
+    \KwIn{The array : $A[0...A.length - 1]$; The decimal of elements : r}
+    \KwOut{The array sorted : $C[0...C.length - 1]$;}
+    \BlankLine
+    Initialize $d[0...d.length - 1]$;\\
+    $d_{max}$ = 0;\\
+    \For(){i = 0; i < A.length; ++i}{
+        $d[i]$ = -1;\\
+        t = $A[i]$;\\
+        \While(){t != 0}{
+            ++$d[i]$;\\
+            t = t / r;
+        }
+        \If(){$d[i]$ > $d_{max}$}{
+            $d_{max}$ = $d[i]$;\\
+        }
+    }
+    create a new array $B[0...d_{max}]$;\\
+    \For(){i = 0; i < $d_{max}$; ++i}{
+        make $B[i]$ an empty list; 
+    }
+    \For(){i = 0; i < A.length; ++i}{
+        insert $A[i]$ into list $B[d[i]]$;
+    }
+    \For(){i = 0; i < $d_{max}$; ++i}{
+        RADIX-SORT($B[i]$);
+    }
+    \BlankLine
+    concatenate lists $B[0]...B[d_{max} - 1]$ together in $C$;
+    \BlankLine
+    \Return{$C$}
+\end{algorithm*}
+
 第i个操作的代价为
 $$d_{i}\begin{cases}
-    i \quad if i = 2^{k},k\in \mathbb{N} \\
+    i \quad if \ i = 2^{k},k\in \mathbb{N} \\
     1 \quad else
 \end{cases}$$
+n个操作序列的总代价为
+$$\sum_{i=1}^{n}a_{i}$$
+\begin{enumerate}
+    \item 聚合分析：\\
+    $$\sum_{i=1}^{n}a_{i} \leq \sum_{i=1}^{\lceil \log n \rceil }2^{i} + n \leq 5n \in O(n)$$
+    摊还代价为$O(1)$
+    \item 核算法： \\
+    假设每个操作的摊还代价为3
+    \begin{enumerate}
+        \item 第一个操作的代价为1，剩余信用为2
+        \item 假设在前$2^{i}$次操作后，信用不为负值，那么在进行后续
+        $2^{i+1} - 1$次操作时，每次操作的代价为1，在进行第$2^{i+1}$次操作时，
+        信用值至少为$2^{i+1}+1$，代价为$2^{i+1}$，信用为1。
+    \end{enumerate}
+    摊还代价为$O(1)$
+    \item 势能法：\\
+    设$k$为满足$2^{k}\leq i$的最大整数，则势函数为
+    $$\Phi(D_{i})=\begin{cases}
+        k + 3 \quad i = 2^{k}\\
+        \Phi(D_{2^{k}})+2(i-2^{k}) \quad else
+    \end{cases}$$
+    则
+    $$\Phi(D_{i})-\Phi(D_{i-1})=\begin{cases}
+        -2^{k}+3 \quad i=2^{k}\\
+        2 \quad else
+    \end{cases}$$
+    所以
+    $$\sum_{i=1}^{n}a_{i}=3n=O(n)$$
+    摊还代价为$O(1)$
+\end{enumerate}
+\end{solution}
+\begin{problem}
+    
+\end{problem}
+\begin{solution}
+    
 \end{solution}
 \end{document}
