@@ -5,7 +5,7 @@
 \usepackage{float}
 \usepackage{framed}
 \usepackage[ruled,vlined]{algorithm2e}
-\title{\textbf{assignment3}}
+\title{\textbf{assignment7}}
 \author{Xiaoma}
 \date{\today}
 \linespread{1.5}
@@ -30,7 +30,7 @@
     \KwIn{The array : $A[0...A.length - 1]$; The decimal of elements : r}
     \KwOut{The array sorted : $C[0...C.length - 1]$;}
     \BlankLine
-    Initialize $d[0...d.length - 1]$;\\
+    Initialized $d[0...d.length - 1]$;\\
     $d_{max}$ = 0;\\
     \For(){i = 0; i < A.length; ++i}{
         $d[i]$ = -1;\\
@@ -99,6 +99,48 @@ $$\sum_{i=1}^{n}a_{i}$$
     
 \end{problem}
 \begin{solution}
-    
+    \begin{algorithm*}
+        \caption{My\_Queue}
+        \label{alg:algorithm}
+        Initialized : deque as $d$\\
+        Initialized : queue as $q$
+    \end{algorithm*}
+    \begin{algorithm*}
+        \caption{ENQUEUE}
+        \label{alg:algorithm}
+        \KwIn{The number : $value$;}
+        \While(){!d.empty() && d.back() > value}{
+            d.pop\_back();
+        }
+        d.push\_back(value);\\
+        q.push(value);
+    \end{algorithm*}
+    \begin{algorithm*}
+        \caption{DEQUEUE}
+        \label{alg:algorithm}
+        \KwOut{The number : $value$;}
+        \If(){q.empty()}{
+            \Return{ERROR}
+        }
+        value = q.front();\\
+        \If(){value == d.front()}{
+            d.pop\_front();
+        }
+        q.pop();
+        \BlankLine
+        \Return{value};
+    \end{algorithm*}
+    \begin{algorithm*}
+        \caption{FIND\_MIN}
+        \label{alg:algorithm}
+        \KwOut{The min number : $value$;}
+        \If(){d.empty()}{
+            \Return{ERROR};
+        }
+        value = d.front();
+        \BlankLine
+        \Return{value};
+    \end{algorithm*}
+
 \end{solution}
 \end{document}
