@@ -99,6 +99,10 @@ $$\sum_{i=1}^{n}a_{i}$$
     
 \end{problem}
 \begin{solution}
+    当一个元素进入队列的时候，它前面的所有比它大的元素都不会对结果产生影响。\\所以我们使用一个普通队列来存储队列中的
+    元素，另外需要一个单调的双端队列存储其最小值的变化。\\规定最小元素在双端队列的队头，在有新元素入队时，首先检查
+    新元素是否小于当前队列最小值，若小于，则将当前双端队列清空，再将新元素插入双端队列，因为当前双端队列中元素相对于新元素在队列中较为靠前，故出队顺序优先，
+    已知新元素为最小值，则原双端队列出队与否对整个队列的最小值不产生影响。若大于，则直接将元素插入双端队列。\\
     \begin{algorithm*}
         \caption{My\_Queue}
         \label{alg:algorithm}
@@ -109,12 +113,13 @@ $$\sum_{i=1}^{n}a_{i}$$
         \caption{ENQUEUE}
         \label{alg:algorithm}
         \KwIn{The number : $value$;}
-        \While(){!d.empty() && d.back() > value}{
+        \While(){!d.empty() AND d.back() > value}{
             d.pop\_back();
         }
-        d.push\_back(value);\\
+        d.push$\_$back(value);\\
         q.push(value);
     \end{algorithm*}
+    \pagebreak
     \begin{algorithm*}
         \caption{DEQUEUE}
         \label{alg:algorithm}
@@ -141,6 +146,11 @@ $$\sum_{i=1}^{n}a_{i}$$
         \BlankLine
         \Return{value};
     \end{algorithm*}
-
+    \newpage
+聚合分析：\\
+对于n个操作序列，ENQUEUE与DEQUEUE的操作次数相同，而对于双端队列，其出队与入队次数也应该相同，则总的操作代价
+$$\sum_{i=1}^{n}a_{i}\leq \sum_{i=1}^{x}1+\sum_{i=1}^{x}d_{i}+\sum_{i=1}^{x}1+(x-\sum_{i=1}^{x}d_{i})+(n-2x)
+\leq 3n$$
+则每个操作的摊还复杂度为$O(1)$
 \end{solution}
 \end{document}
