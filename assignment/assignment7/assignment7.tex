@@ -154,4 +154,24 @@ $$\sum_{i=1}^{n}a_{i}\leq \sum_{i=1}^{x}1+\sum_{i=1}^{x}d_{i}+\sum_{i=1}^{x}1+(x
 则每个操作的摊还复杂度为$O(1)$
 
 \end{solution}
+
+\begin{problem}
+    
+\end{problem}
+\begin{solution}
+    假设$u_{i}$为贪心算法第$i$次迭代还没有被覆盖的元素个数，$k$为所需最少的集合个数，故最少需要$k$个最优集合
+    可以覆盖$u_{i}$个元素，所以最优集合中至少一个集合包含至少$u_{i}/k$个元素。
+    \begin{align*}
+        u_{i+1} \leq (u_{i} - \frac{u_{i}}{k}) \leq (1-\frac{1}{k})u_{i} \leq 
+        (1-\frac{1}{k})(1-\frac{1}{k})u_{i-1}\leq ... \leq (1-\frac{1}{k})^{i+1}u_{0}=(1-\frac{1}{k})^{i+1}n
+    \end{align*}
+    $$
+    u_{i+1}\leq (1-\frac{1}{k})^{i+1}n$$
+    $$(1-\frac{1}{k})^{i} = ((1-\frac{1}{k})^{k})^{\frac{i}{k}}\leq e^{-\frac{i}{k}}$$
+    $$1-(1-\frac{1}{k})^{k} \geq 1-\frac{1}{e}$$
+    则算法的近似比为$1-(1-\frac{1}{k})^{k} \geq 1-\frac{1}{e}$\\
+    当$u_{i}\leq 1$时，终止迭代。
+    $$ne^{-\frac{i}{k}} \leq 1 \Leftrightarrow e^{-\frac{i}{k}} \leq \frac{1}{n} \Leftrightarrow -\frac{i}{k} \leq \ln n \Leftrightarrow i \geq k\ln n$$
+    则算法的时间复杂度为$O(k \log n)$
+\end{solution}
 \end{document}
