@@ -1,0 +1,123 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, color, framed, graphicx, hyperref, mathrsfs}
+\usepackage{enumerate}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{framed}
+\usepackage[ruled,vlined]{algorithm2e}
+\title{\textbf{assignment8}}
+\author{Xiaoma}
+\date{\today}
+\linespread{1.5}
+\definecolor{shadecolor}{RGB}{230, 245, 255}
+\newcounter{problemname}
+\newenvironment{problem}{\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目\arabic{problemname}. }}{\end{shaded}\par}
+\newenvironment{solution}{\par\noindent\textbf{解答. }}{\par}
+\newenvironment{note}{\par\noindent\textbf{题目\arabic{problemname}的注记. }}{\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+\end{problem}
+\begin{solution}
+\begin{enumerate}
+    \item 若要计算$a^{n}$，已知当$n=0$时，$a^{n}=1$，当$n=1$时，$a^{n}=a$，当$n$为奇数时$a^{n} = (a^{\frac{n}{2}})^{2} \times a$，
+    当$n$为偶数时，$a^{n}=(a^{\frac{n}{2}})^{2}$，故可将计算$a^{n}$拆分为以上子问题。子问题的最坏运行
+    时间为$O(\log n)$。
+    \item 合并过程仅需将子问题得到的数字相乘，最坏运行时间为$O(1)$。
+    \item 由上述可知，原问题划分出的子问题是相同的，故只需要计算一个子问题然后进行合并，故不用重复其划分子问题和合并步骤。
+    \item $a^{n}=(a^{\frac{n}{2}})(a^{\frac{n}{2}})a^{n\%2}=(a^{\frac{n}{4}}a^{\frac{n}{4}}a^{\frac{n}{2}\%2})(a^{\frac{n}{4}}a^{\frac{n}{4}}a^{\frac{n}{2}\%2})a^{n\%2}
+    =\dotsb=(\Pi_{i=1}^{\frac{n}{2}}a)(\Pi_{i=1}^{\frac{n}{2}}a)a^{n\%2}$，故该算法一定能得到正确的计算解。
+    \item 算法共需要递归$\log n$次，故时间复杂度为$O(\log n)$。
+\end{enumerate}
+\begin{algorithm*}
+    \caption{myPow}
+    \label{alg:algorithm}
+    \KwIn{The base : a; The exponent : n;}
+    \KwOut{$a^{n}$;}
+    \BlankLine
+    \If(){$n == 0$}{
+        \Return{1};
+    }
+    \If(){$n == 1$}{
+        \Return{a};
+    }
+    $temp = myPow(a, n/2);$
+    \BlankLine
+    \If(){$n \% 2 == 0$}{
+        \Return{$temp * temp$};
+    }
+    \Return{temp * temp * a};
+\end{algorithm*}
+\end{solution}
+
+\newpage
+\begin{problem}
+    
+\end{problem}
+\begin{solution}
+    设两个数据库中数字的中位数分别为$A[a]$，$B[b]$，数据库A的首尾分别为$s_{1},d_{1}$，数据库B的首尾分别为$s_{2},d_{2}$，所以
+    $a = (s_{1}+d_{1})/2, b = (s_{2}+d_{2})/2$。
+    \begin{enumerate}
+        \item 若$A[a]=B[b]$，则$A[a]$为两个数据库的中位数。
+        \item 若$a<b$\begin{itemize}
+            \item 若数据库A中元素个数为奇数，数据库A将$s_{1}$移动到$a$，数据库B将$d_{2}$移动到$b$
+            \item 若数据库A中元素个数为偶数，数据库A将$s_{1}$移动到$a+1$，数据库B将$d_{2}$移动到$b$
+        \end{itemize}
+        \item 若$a>b$\begin{itemize}
+            \item 若数据库A中元素个数为奇数，数据库A将$d_{1}$移动到$a$，数据库A将$s_{2}$移动到$b$
+            \item 若数据库A中元素个数为偶数，数据库A将$d_{1}$移动到$a$，数据库A将$s_{2}$移动到$b+1$
+        \end{itemize}
+        \item 重复2,3直至1成立，或当两数据库的首尾范围均只包含一个数时，较小的数为所求中位数。
+    \end{enumerate}
+    \begin{algorithm*}
+        \caption{mySearch}
+        \label{alg:algorithm}
+        \KwIn{Database A : A; Database B : B; The size of database : n;}
+        \KwOut{The median of A and B;}
+        \BlankLine
+        s1 = 0, d1 = n - 1, s2 = 0, s2 = n - 1;
+        \BlankLine
+        \While(){$s1 != d1 || s2 != d2$}{
+            a = (s1 + d1) / 2;\\
+            b = (s2 + d2) / 2;\\
+            \If(){$A[a] == B[b]$}{
+                \Return{$A[a]$};
+            }
+            \If(){$A[a] < B[b]$}{
+                \If(){$(s1 + d1) \% 2 == 0$}{
+                    s1 = a;\\
+                    d2 = b;
+                }
+                \Else(){
+                    s1 = a + 1;\\
+                    d1 = b;
+                }
+            }
+            \Else(){
+                \If(){$(s1 + d1) \% 2 == 0$}{
+                    d1 = a;\\
+                    s2 = b;
+                }
+                \Else(){
+                    d1 = a;\\
+                    s2 = b + 1;
+                }
+            }
+        }
+        \If(){A[a] > B[b]}{
+            \Return{$B[b]$};
+        }
+        \Return{$A[a]$};
+    \end{algorithm*}
+    \textbf{每次迭代都舍弃一半的数据，故该算法的时间复杂度为$O(\log n)$。}
+\end{solution}
+\begin{problem}
+    
+\end{problem}
+\begin{solution}
+    
+\end{solution}
+\end{document}
