@@ -114,10 +114,15 @@
     \end{algorithm*}
     \textbf{每次迭代都舍弃一半的数据，故该算法的时间复杂度为$O(\log n)$。}
 \end{solution}
+\newpage
 \begin{problem}
     
 \end{problem}
 \begin{solution}
-    
+    假设每次随机选择一个方向，若前进$i$（$i$递增）米后，未找到宝藏，则回到出发点选择剩余未选择的方向，
+    将每个方向都选择一次后，重新开始循环，直到找到宝藏。\\
+    $$cost  (OPT) = 2^{j}+\varepsilon > 2^{j}$$
+    $$cost (ON) = m(2+4+...+2^{j})+2^{j}+\varepsilon =(m+1)2^{j}+\varepsilon < (m+1)cost (OPT)$$
+    则算法竞争比为$O(m)$。
 \end{solution}
 \end{document}
