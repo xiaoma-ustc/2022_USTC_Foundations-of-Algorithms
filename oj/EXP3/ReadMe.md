@@ -144,7 +144,7 @@ $n\times m$
 
 数据规模：
 
-$20000<n \quad m≤2000$
+$20000<n \quad m \leq 2000$
 
 ## Output
 
