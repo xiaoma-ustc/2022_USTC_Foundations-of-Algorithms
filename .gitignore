@@ -18,3 +18,7 @@ assignment8.aux
 assignment8.log
 assignment8.out
 assignment8.synctex.gz
+*.out
+*.log
+*.aux
+*.synctex.gz

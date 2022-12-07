@@ -1,0 +1,67 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, color, framed, graphicx, hyperref, mathrsfs}
+\usepackage{enumerate}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{framed}
+\usepackage[ruled,vlined]{algorithm2e}
+\title{\textbf{assignment8}}
+\author{Xiaoma}
+\date{\today}
+\linespread{1.5}
+\definecolor{shadecolor}{RGB}{230, 245, 255}
+\newcounter{problemname}
+\newenvironment{problem}{\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目\arabic{problemname}. }}{\end{shaded}\par}
+\newenvironment{solution}{\par\noindent\textbf{解答. }}{\par}
+\newenvironment{note}{\par\noindent\textbf{题目\arabic{problemname}的注记. }}{\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+\end{problem}
+\begin{solution}
+    \begin{itemize}
+        \item 若被删去的边在原最小生成树中：\\
+        原最小生成树被分为两部分，遍历整个图，寻找令两部分重新连接的权重
+        最小的边，则得到新图的最小生成树。
+        \item 若被删去的边不在原最小生成树中：\\
+        则原最小生成树即为新图的最小生成树。
+    \end{itemize}
+    对于第一种情况，算法的时间复杂度为$O(E)$，则可以在与E成
+    正比的时间内找到新图的最小生成树。
+\end{solution}
+
+\begin{problem}
+    
+\end{problem}
+\begin{solution}
+    假设新增的边为$(u,v)$，从$u$开始沿着最小生成树的边遍历到$v$，那么可以得到一个环$(u,v,...,u)$，选择
+    该环中权值最大的点$e_{max}$
+    \begin{itemize}
+        \item 若$e_{max}$不是新增边，则将$e_{max}$从最小生成树中删去，
+    并将新边$(u,v)$加入合并入最小生成树，得到新图的最下生成树。
+        \item 若$e_{max}$是新增边，原最小生成树为新图的最小生成树。
+    \end{itemize}
+    算法的时间复杂度为$O(V)$。
+\end{solution}
+
+\begin{problem}
+    
+\end{problem}
+\begin{solution}
+    设起点集为$S_{1}$，其他点集为$S_{2}$，新增一个节点$s'$，设$s'$和$S_{1}$中的点都有边相连，且边的
+    权值都为0，以$s'$为起点，使用dijkstra算法求$s'$到每个点的最短路径，得到最短路径树$T$，去掉$T$中
+    $s'$与$S_{1}$中各点的边，则得到最短路径森林。记录每个起点到任意点的距离，则可以得到起点到任意点的最短
+    路径。
+\end{solution}
+
+\begin{problem}
+    
+\end{problem}
+\begin{solution}
+    与3同理，首先采用Dijkstra算法得到最短路径森林，时间复杂度为$O(E \log V)$，然后枚举每个起点到终点的距离得到最短路径，时间复杂度为$O(V)$，
+    则总时间复杂度为$O(E \log V)$。
+\end{solution}
+\end{document}
